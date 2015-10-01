@@ -3,6 +3,7 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
+    url(r'^categories/(?P<slug>[\w-]+)/$', views.category, name='category',),
     url(r'^categories/', views.categories, name='categories'),
     # url(r'^book/(\d+)/', views.book_details, name='book_details'),
     # url(r'^add/(\d+)/', views.add_to_cart, name='add_to_cart'),

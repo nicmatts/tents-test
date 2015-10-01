@@ -4,11 +4,12 @@ from .models import Category, Subcategory
 
 
 class CategoryAdmin(admin.ModelAdmin):
-    pass
+    prepopulated_fields = {"slug": ('name',)}
 
 
 class SubcategoryAdmin(admin.ModelAdmin):
     list_display = ('name', 'parent_category')
+    prepopulated_fields = {"slug": ('name',)}
 
 
 admin.site.register(Category, CategoryAdmin)

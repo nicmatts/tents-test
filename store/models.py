@@ -7,12 +7,14 @@ class Category(models.Model):
     name = models.CharField(max_length=200)
     description = models.TextField()
     category_image = models.ImageField()
+    slug = models.SlugField(unique=True)
 
     def __unicode__(self):
         return "%s" % (self.name)
 
     class Meta:
         verbose_name_plural = "Categories"
+        ordering = ['name']
 
 
 class Subcategory(models.Model):
@@ -20,12 +22,14 @@ class Subcategory(models.Model):
     description = models.TextField()
     subcategory_image = models.ImageField()
     parent_category = models.ForeignKey(Category, related_name="subcategories")
+    slug = models.SlugField(unique=True)
 
     def __unicode__(self):
         return "%s" % (self.name)
 
     class Meta:
         verbose_name_plural = "Subcategories"
+        ordering = ['name', 'parent_category']
 
 
 

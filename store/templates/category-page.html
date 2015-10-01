@@ -1,0 +1,10 @@
+<h1>{{ category.name}}</h1>
+
+{{ category.description }}
+    {% if category.subcategories.all %}
+        <ul>
+        {% for subcategories in category.subcategories.all %}
+            <li>{{ subcategories.name }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
