@@ -1,11 +1,11 @@
-
+<h1>Categories</h1>
 <ul>
 {% for category in categories %}
-    <li>{{ category.name }}
+    <li><a href="{% url 'category' category.slug %}">{{ category.name }}</a>
         {% if category.subcategories.all %}
             <ul>
             {% for subcategories in category.subcategories.all %}
-                <li>{{ subcategories.name }}</li>
+                <li><a href="{% url 'subcategory' category.slug subcategories.slug %}">{{ subcategories.name }}</li>
             {% endfor %}
             </ul>
         {% endif %}

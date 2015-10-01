@@ -4,7 +4,9 @@
     {% if category.subcategories.all %}
         <ul>
         {% for subcategories in category.subcategories.all %}
-            <li>{{ subcategories.name }}</li>
+            <li><a href="{{ subcategories.slug }}/">{{ subcategories.name }}</li>
         {% endfor %}
         </ul>
     {% endif %}
+
+<a href="{% url 'categories' %}">Back to all categories</a>

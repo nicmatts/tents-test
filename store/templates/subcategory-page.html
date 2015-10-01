@@ -1,1 +1,5 @@
 <h1>{{ subcategory.name }}</h1>
+
+<p>{{ subcategory.description }}</p>
+
+<p>Parent category: <a href="{% url 'category' subcategory.parent_category.slug %}">{{ subcategory.parent_category }}</a></p>
