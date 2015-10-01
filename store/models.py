@@ -9,7 +9,7 @@ class Category(models.Model):
     name = models.CharField(max_length=200)
     description = models.TextField()
     category_image = models.ImageField()
-    slug = models.SlugField(unique=True)
+    slug = AutoSlugField(populate_from='name', unique=True, editable=True)
 
     def __unicode__(self):
         return "%s" % (self.name)
@@ -24,7 +24,7 @@ class Subcategory(models.Model):
     description = models.TextField()
     subcategory_image = models.ImageField()
     parent_category = models.ForeignKey(Category, related_name="subcategories")
-    slug = models.SlugField(unique=True)
+    slug = AutoSlugField(populate_from='name', unique=True, editable=True)
 
     def __unicode__(self):
         return "%s" % (self.name)
@@ -61,7 +61,7 @@ class Product(models.Model):
     moorhead_weekend_price = models.DecimalField(decimal_places=2, max_digits=9, blank=True)
     moorhead_weekly_price = models.DecimalField(decimal_places=2, max_digits=9, blank=True)
     moorhead_4_week_price = models.DecimalField(decimal_places=2, max_digits=9, blank=True)
-    slug = AutoSlugField(populate_from='name')
+    slug = AutoSlugField(populate_from='name', unique=True, editable=True)
 
     def __unicode__(self):
         return "%s" % (self.name)
