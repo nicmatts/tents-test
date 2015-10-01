@@ -15,6 +15,21 @@ class Category(models.Model):
         verbose_name_plural = "Categories"
 
 
+class Subcategory(models.Model):
+    name = models.CharField(max_length=200)
+    description = models.TextField()
+    subcategory_image = models.ImageField()
+    parent_category = models.ForeignKey(Category)
+
+    def __unicode__(self):
+        return "%s" % (self.name)
+
+    class Meta:
+        verbose_name_plural = "Subcategories"
+
+
+
+
 # class Product(models.Model):
 #     name = models.CharField(max_length=200)
 #     description = models.TextField()
