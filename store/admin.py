@@ -4,6 +4,6 @@ from .models import Category
 
 
 class CategoryAdmin(admin.ModelAdmin):
-    verbose_name = "Categories"
+    pass
 
 admin.site.register(Category, CategoryAdmin)

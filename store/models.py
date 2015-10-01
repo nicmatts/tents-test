@@ -12,7 +12,7 @@ class Category(models.Model):
         return "%s" % (self.name)
 
     class Meta:
-        verbose_name = "Category"
+        verbose_name_plural = "Categories"
 
 
 # class Product(models.Model):
