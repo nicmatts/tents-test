@@ -21,3 +21,11 @@ def category(request, slug):
         'category': category,
     }
     return render(request, 'category-page.html', context)
+
+
+def subcategory(request, parent_category, slug):
+    subcategory = Subcategory.objects.get(slug=slug)
+    context = {
+        'subcategory': subcategory,
+    }
+    return render(request, 'subcategory-page.html', context)

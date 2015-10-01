@@ -3,6 +3,7 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
+    url(r'^categories/(?P<parent_category>[\w-]+)/(?P<slug>[\w-]+)/$', views.subcategory, name='subcategory',),
     url(r'^categories/(?P<slug>[\w-]+)/$', views.category, name='category',),
     url(r'^categories/', views.categories, name='categories'),
     # url(r'^book/(\d+)/', views.book_details, name='book_details'),
