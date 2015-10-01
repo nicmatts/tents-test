@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from .models import Category
+from .models import Category, Subcategory
 
 
 def home(request):
