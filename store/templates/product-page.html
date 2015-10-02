@@ -1,3 +1,15 @@
 <h1>{{ product.name }}</h1>
 
+<p>{{ product.description }}</p>
+
+<h2>Categories</h2>
+
+{% if product.subcategory %}
+    <ul>
+        {% for subcategory in product.subcategory.all %}
+            <li><a href="{% url 'category' subcategory.parent_category.slug %}">{{ subcategory.parent_category.name}}</a> > <a href="{% url 'subcategory' subcategory.parent_category.slug subcategory.slug %}">{{ subcategory.name }}</li>
+        {% endfor %}
+        </ul>
+{% endif %}
+
 <a href="{% url 'all_products' %}">Back to all products</a>
