@@ -5,14 +5,17 @@ from .models import Category, Subcategory, Product
 
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name', 'slug')
+    prepopulated_fields = {"slug": ('name',)}
 
 
 class SubcategoryAdmin(admin.ModelAdmin):
     list_display = ('name', 'parent_category', 'slug')
+    prepopulated_fields = {"slug": ('name',)}
 
 
 class ProductAdmin(admin.ModelAdmin):
     list_display = ('name', 'slug')
+    prepopulated_fields = {"slug": ('name',)}
     fieldsets = [
         ('Product Information', {'fields': ['name', 'description', 'product_image', 'category', 'subcategory', 'slug']}),
         ('Bismarck Prices', {'fields': ['bismarck_weekday_price', 'bismarck_weekend_price', 'bismarck_weekly_price', 'bismarck_4_week_price']}),
