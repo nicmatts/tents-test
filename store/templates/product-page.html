@@ -7,9 +7,29 @@
 {% if product.subcategory %}
     <ul>
         {% for subcategory in product.subcategory.all %}
-            <li><a href="{% url 'category' subcategory.parent_category.slug %}">{{ subcategory.parent_category.name}}</a> > <a href="{% url 'subcategory' subcategory.parent_category.slug subcategory.slug %}">{{ subcategory.name }}</li>
+            <li><a href="{% url 'category' subcategory.parent_category.slug %}">{{ subcategory.parent_category.name}}</a> > <a href="{% url 'subcategory' subcategory.parent_category.slug subcategory.slug %}">{{ subcategory.name }}</a></li>
         {% endfor %}
         </ul>
 {% endif %}
+
+<h2>Rental Rates</h2>
+
+<h3>Bismarck</h3>
+<table>
+    <th>
+        <tr>
+            <td>Weekday</td>
+            <td>Weekend</td>
+            <td>Weekly</td>
+            <td>4 Weeks</td>
+        </tr>
+    </th>
+    <tr>
+        <td>${{ product.bismarck_weekday_price }}</td>
+        <td>${{ product.bismarck_weekend_price }}</td>
+        <td>${{ product.bismarck_weekly_price }}</td>
+        <td>${{ product.bismarck_4_week_price }}</td>
+    </tr>
+</table>
 
 <a href="{% url 'all_products' %}">Back to all products</a>
