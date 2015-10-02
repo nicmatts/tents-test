@@ -1,11 +1,11 @@
-from django.core.urlresolvers import resolve
+from django.core.urlresolvers import resolve, reverse
 from django.test import TestCase
 from django.http import HttpRequest
 from django.template.loader import render_to_string
 
-from .models import Category
+from .models import Category, Subcategory
 
-from .views import home, categories, category
+from .views import home, categories, category, subcategory
 
 
 class HomePageTest(TestCase):
@@ -36,7 +36,32 @@ class CategoriesPageTest(TestCase):
         resp = self.client.get('/products/categories/')
         # make sure page loads
         self.assertEqual(resp.status_code, 200)
-        # in the context variable for view, test for 'books' entry
+        # in the context variable for view, test for 'categories' entry
         self.assertTrue('categories' in resp.context)
-        # check to make sure there is at least one book in the DB
+        # check to make sure there is at least one category in the DB
         self.assertTrue(resp.context['categories'].count > 0)
+
+
+class CategoryPageTest(TestCase):
+    def setUp(self):
+        category = Category.objects.create(name="test3", description="test", category_image="test.jpg")
+
+    def test_category_page(self):
+        resp = self.client.get('/products/categories/test3/')
+        self.assertEqual(resp.status_code, 200)
+        self.assertEqual(resp.context['category'].pk, 3)
+        self.assertEqual(resp.context['category'].name, 'test3')
+        # resp2 = self.client.get('/products/categories/no-test/')
+        # self.assertEqual(resp2.status_code, 404)
+
+
+class SubategoryPageTest(TestCase):
+    def setUp(self):
+        category = Category.objects.create(name="parent", description="test", category_image="test.jpg")
+        subcategory = Subcategory.objects.create(name="subcategory", description="subcategory", subcategory_image="test.jpg", parent_category=category)
+
+    def test_category_page(self):
+        resp = self.client.get('/products/categories/parent/subcategory/')
+        self.assertEqual(resp.status_code, 200)
+        self.assertEqual(resp.context['subcategory'].pk, 1)
+        self.assertEqual(resp.context['subcategory'].name, 'subcategory')
