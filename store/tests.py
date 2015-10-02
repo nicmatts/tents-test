@@ -3,9 +3,9 @@ from django.test import TestCase
 from django.http import HttpRequest
 from django.template.loader import render_to_string
 
-from .models import Category, Subcategory
+from .models import Category, Subcategory, Product
 
-from .views import home, categories, category, subcategory
+from .views import home, categories, category, subcategory, all_products, single_product
 
 
 class HomePageTest(TestCase):
@@ -65,3 +65,75 @@ class SubategoryPageTest(TestCase):
         self.assertEqual(resp.status_code, 200)
         self.assertEqual(resp.context['subcategory'].pk, 1)
         self.assertEqual(resp.context['subcategory'].name, 'subcategory')
+
+
+class ProductsPageTest(TestCase):
+    def setUp(self):
+        product = Product.objects.create(
+            name="product",
+            description="product",
+            product_image="test.jpg",
+            bismarck_weekday_price=1.00,
+            bismarck_weekend_price=1.00,
+            bismarck_weekly_price=1.00,
+            bismarck_4_week_price=1.00,
+            forx_weekday_price=1.00,
+            forx_weekend_price=1.00,
+            forx_weekly_price=1.00,
+            forx_4_week_price=1.00,
+            fargo_25_weekday_price=1.00,
+            fargo_25_weekend_price=1.00,
+            fargo_25_weekly_price=1.00,
+            fargo_25_4_week_price=1.00,
+            fargo_32_weekday_price=1.00,
+            fargo_32_weekend_price=1.00,
+            fargo_32_weekly_price=1.00,
+            fargo_32_4_week_price=1.00,
+            moorhead_weekday_price=1.00,
+            moorhead_weekend_price=1.00,
+            moorhead_weekly_price=1.00,
+            moorhead_4_week_price=1.00,
+        )
+
+    def test_products(self):
+        resp = self.client.get('/products/all/')
+        # make sure page loads
+        self.assertEqual(resp.status_code, 200)
+        # in the context variable for view, test for 'categories' entry
+        self.assertTrue('products' in resp.context)
+        # check to make sure there is at least one category in the DB
+        self.assertTrue(resp.context['products'].count > 0)
+
+class SingleProductPageTest(TestCase):
+    def setUp(self):
+        single_product = Product.objects.create(
+            name="single product",
+            description="product",
+            product_image="test.jpg",
+            bismarck_weekday_price=1.00,
+            bismarck_weekend_price=1.00,
+            bismarck_weekly_price=1.00,
+            bismarck_4_week_price=1.00,
+            forx_weekday_price=1.00,
+            forx_weekend_price=1.00,
+            forx_weekly_price=1.00,
+            forx_4_week_price=1.00,
+            fargo_25_weekday_price=1.00,
+            fargo_25_weekend_price=1.00,
+            fargo_25_weekly_price=1.00,
+            fargo_25_4_week_price=1.00,
+            fargo_32_weekday_price=1.00,
+            fargo_32_weekend_price=1.00,
+            fargo_32_weekly_price=1.00,
+            fargo_32_4_week_price=1.00,
+            moorhead_weekday_price=1.00,
+            moorhead_weekend_price=1.00,
+            moorhead_weekly_price=1.00,
+            moorhead_4_week_price=1.00,
+        )
+
+    def test_product_page(self):
+        resp = self.client.get('/products/single-product/')
+        self.assertEqual(resp.status_code, 200)
+        self.assertEqual(resp.context['product'].pk, 2)
+        self.assertEqual(resp.context['product'].name, 'single product')
