@@ -1,3 +1,5 @@
+{% load staticfiles %}
+
 <html>
     <head><title>Tents and Events RentAll</title></head>
     <body>
@@ -6,6 +8,7 @@
         
         <ul>
         {% for product in products %}
+            <img src="{{ product.product_image.url }}">
             <li><a href="{% url 'single_product' product.slug %}">{{ product.name }}</a></li>
         {% endfor %}     
         </ul>

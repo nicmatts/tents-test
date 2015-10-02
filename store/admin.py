@@ -14,7 +14,7 @@ class SubcategoryAdmin(admin.ModelAdmin):
 
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('name', 'slug')
+    list_display = ('name', 'slug', 'featured')
     prepopulated_fields = {"slug": ('name',)}
     fieldsets = [
         ('Product Information', {'fields': ['name', 'description', 'product_image', 'category', 'subcategory', 'featured', 'slug']}),
