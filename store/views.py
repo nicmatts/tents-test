@@ -1,10 +1,16 @@
 from django.shortcuts import render
 
-from .models import Category, Subcategory
+from .models import Category, Subcategory, Product
 
 
 def home(request):
-    return render(request, 'home.html')
+    categories = Category.objects.all()
+    products = Product.objects.all()
+    context = {
+        'categories': categories,
+        'products': products,
+    }
+    return render(request, 'home.html', context)
 
 
 def categories(request):
@@ -29,3 +35,19 @@ def subcategory(request, parent_category, slug):
         'subcategory': subcategory,
     }
     return render(request, 'subcategory-page.html', context)
+
+
+def all_products(request):
+    products = Product.objects.all()
+    context = {
+        'products': products,
+    }
+    return render(request, 'all-products.html', context)
+
+
+def single_product(request, slug):
+    product = Product.objects.get(slug=slug)
+    context = {
+        'product': product,
+    }
+    return render(request, 'product-page.html', context)
