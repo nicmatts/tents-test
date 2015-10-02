@@ -5,7 +5,7 @@ from .models import Category, Subcategory, Product
 
 def home(request):
     categories = Category.objects.all()
-    products = Product.objects.all()
+    products = Product.objects.filter(featured=True)
     context = {
         'categories': categories,
         'products': products,

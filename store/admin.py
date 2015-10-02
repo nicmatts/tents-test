@@ -17,7 +17,7 @@ class ProductAdmin(admin.ModelAdmin):
     list_display = ('name', 'slug')
     prepopulated_fields = {"slug": ('name',)}
     fieldsets = [
-        ('Product Information', {'fields': ['name', 'description', 'product_image', 'category', 'subcategory', 'slug']}),
+        ('Product Information', {'fields': ['name', 'description', 'product_image', 'category', 'subcategory', 'featured', 'slug']}),
         ('Bismarck Prices', {'fields': ['bismarck_weekday_price', 'bismarck_weekend_price', 'bismarck_weekly_price', 'bismarck_4_week_price']}),
         ('Grand Forks Prices', {'fields': ['forx_weekday_price', 'forx_weekend_price', 'forx_weekly_price', 'forx_4_week_price']}),
         ('Fargo 25th Prices', {'fields': ['fargo_25_weekday_price', 'fargo_25_weekend_price', 'fargo_25_weekly_price', 'fargo_25_4_week_price']}),

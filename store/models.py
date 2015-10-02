@@ -41,6 +41,7 @@ class Product(models.Model):
     product_image = models.ImageField(blank=True)
     category = models.ManyToManyField(Category)
     subcategory = models.ManyToManyField(Subcategory)
+    featured = models.BooleanField(default=False)
     bismarck_weekday_price = models.DecimalField(decimal_places=2, max_digits=9, blank=True)
     bismarck_weekend_price = models.DecimalField(decimal_places=2, max_digits=9, blank=True)
     bismarck_weekly_price = models.DecimalField(decimal_places=2, max_digits=9, blank=True)
