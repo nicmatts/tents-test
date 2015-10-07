@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block body %}
+
+    <div class="col-md-8 col-md-offset-2 col-sm-12 maincontent">
+        <div class="detail_book_display">
+            <img src="{% static 'base/img/empty_cover.jpg'%}" alt="" class="detail_book_img">
+            <span class="detail_book_title">{{ book.title }}</span>
+            <span class="detail_book_author">{{ book.author }}</span>
+            <div class="detail_book_description">
+                {{ book.description }}
+            </div>
+            <div class="detail_book_reviews_title"><h4>Reviews {% if reviews %}({{ reviews.count }}){% endif %}</h4></div>
+            <div>
+                
+            </div>
+            <div class="detail_book_reviews">
+                {% if form %}
+                    <h4>Have you read this book?</h4>
+                    <form action="{% url 'book_details' book.pk %}" class="form-inline" method="POST">
+                      {% csrf_token %}
+                      {{ form.as_p }}  
+                      <input type="submit" value="Submit" class="type">
+                    </form>
+                {% endif %}
+
+                <div style="text-align: left">
+                    {% for review in reviews %}
+                        <div>
+                            {{ review.text }}
+                        </div>
+                        <div>
+                            --{{ review.user.username }} on {{ review.publish_date }}
+                        </div>
+                    {% empty %}
+                        <div>
+                            There are no reviews for this book yet.
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+
+            <div class="detail_related_items">
+                {% if book.lists %}
+
+                        {{ book.lists.name }}
+                {% else %}
+                    There are no related items for this book yet.
+                {% endif %}
+            </div>        
+        </div>
+
+    </div>
+
+
+
+{% endblock body %}

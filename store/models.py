@@ -69,3 +69,47 @@ class Product(models.Model):
 
     class Meta:
         ordering = ['name']
+
+
+class Cart(models.Model):
+    user = models.ForeignKey(User)
+    active = models.BooleanField(default=True)
+    order_date = models.DateField(null=True)
+
+    def __unicode__(self):
+        return "%s, %s" % (self.user, self.order_date)
+
+    def add_item_to_cart(self, product_id):
+        product = Product.objects.get(pk=product_id)
+        try:
+            preexisting_order = Order.objects.get(product=product, cart=self)
+            preexisting_order.quantity += 1
+            preexisting_order.save()
+        except Order.DoesNotExist:
+            new_order = Order.objects.create(
+                product=product,
+                cart=self,
+                quantity=1
+            )
+            new_order.save()
+
+    def remove_item_from_cart(self, product_id):
+        product = Product.objects.get(pk=product_id)
+        try:
+            preexisting_order = Order.objects.get(product=product, cart=self)
+            if preexisting_order.quantity > 1:
+                preexisting_order.quantity -= 1
+                preexisting_order.save()
+            else:
+                preexisting_order.delete()
+        except Order.DoesNotExist:
+            pass
+
+
+class Order(models.Model):
+    product = models.ForeignKey(Product)
+    cart = models.ForeignKey(Cart)
+    quantity = models.IntegerField()
+
+    def __unicode__(self):
+        return "%s" % (self.cart)

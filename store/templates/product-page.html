@@ -2,6 +2,8 @@
 
 <p>{{ product.description }}</p>
 
+{{ product.id }}
+
 <h2>Categories</h2>
 
 {% if product.subcategory %}
@@ -31,5 +33,11 @@
         <td>${{ product.bismarck_4_week_price }}</td>
     </tr>
 </table>
+
+{% if request.user.is_authenticated %}
+    <span class="storefront_add_to_cart">
+        <a href="{% url 'add_to_cart' product.id %}">Add to cart</a>
+    </span>
+{% endif %}
 
 <a href="{% url 'all_products' %}">Back to all products</a>
