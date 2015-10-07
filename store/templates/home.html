@@ -4,6 +4,10 @@
     <head><title>Tents and Events RentAll</title></head>
     <body>
         <h1>Home</h1>
+        {% if user.is_authenticated %}
+            <h2> Hello, {{ user.username }}</h2>
+        {% endif %}
+
         <h2><a href="{% url 'all_products' %}">All products</a></h2>
         
         <ul>
@@ -13,7 +17,7 @@
         {% endfor %}     
         </ul>
 
-
+    
         <h2><a href="{% url 'categories' %}">All categories</a></h2>
         
         <ul>
