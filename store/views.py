@@ -86,8 +86,8 @@ def add_to_cart(request, product_id):
         # redirect user to their cart
         return redirect('cart')
     else:
-        # if user is not authenticated, send them to the index page
-        return redirect('index')
+        # if user is not authenticated, send them to the home page
+        return redirect('home')
 
 
 def remove_from_cart(request, product_id):
@@ -107,8 +107,8 @@ def remove_from_cart(request, product_id):
         # redirect user to cart
         return redirect('cart')
     else:
-        # redirect unauthenticated user to index page
-        return redirect('index')
+        # redirect unauthenticated user to home page
+        return redirect('home')
 
 
 def cart(request):
@@ -135,9 +135,26 @@ def cart(request):
         }
         return render(request, 'store/cart.html', context)
     else:
-        # if user is not authenticated, redirect to index
-        return redirect('index')
+        # if user is not authenticated, redirect to home
+        return redirect('home')
 
 
 def checkout(request):
-    pass
+    if request.user.is_authenticated():
+        cart = Cart.objects.get(user=request.user.id, active=True)
+        context = {
+            'cart': cart,
+        }
+        return render(request, 'store/checkout.html', context)
+    else:
+        return redirect('home')
+
+def complete_order(request):
+    if request.user.is_authenticated():
+        cart = Cart.objects.get(user=request.user.id, active=True)
+        cart.active = False
+        cart.order_date = timezone.now()
+        cart.save()
+        return render(request, 'store/order-complete.html')
+    else:
+        return redirect('home')
