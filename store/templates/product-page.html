@@ -38,6 +38,8 @@
     <span class="storefront_add_to_cart">
         <a href="{% url 'add_to_cart' product.id %}">Add to cart</a>
     </span>
+{% else %}
+    <a href="/accounts/login/">Log in</a> or <a href="/accounts/register/">register</a> to rent this item.
 {% endif %}
 
 <a href="{% url 'all_products' %}">Back to all products</a>
