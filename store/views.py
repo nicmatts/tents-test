@@ -57,16 +57,8 @@ def all_products(request):
 
 def single_product(request, slug):
     product = Product.objects.get(slug=slug)
-    form = ProductForm
-    if request.user.is_authenticated():
-        if request.method == "POST":
-            form = ProductForm(request.POST)
-            if form.is_valid():
-                cart.add_item_to_cart(product.id)
-                form.save()
     context = {
         'product': product,
-        'form': form,
     }
     return render(request, 'product-page.html', context)
 
