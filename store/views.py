@@ -10,6 +10,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 from .models import Category, Subcategory, Product, Cart, Order
+from .forms import CartForm
 
 
 def home(request):
@@ -56,8 +57,16 @@ def all_products(request):
 
 def single_product(request, slug):
     product = Product.objects.get(slug=slug)
+    form = ProductForm
+    if request.user.is_authenticated():
+        if request.method == "POST":
+            form = ProductForm(request.POST)
+            if form.is_valid():
+                cart.add_item_to_cart(product.id)
+                form.save()
     context = {
         'product': product,
+        'form': form,
     }
     return render(request, 'product-page.html', context)
 
@@ -142,8 +151,10 @@ def cart(request):
 def checkout(request):
     if request.user.is_authenticated():
         cart = Cart.objects.get(user=request.user.id, active=True)
+        items = Order.objects.filter(cart=cart)
         context = {
             'cart': cart,
+            'items': items,
         }
         return render(request, 'store/checkout.html', context)
     else:

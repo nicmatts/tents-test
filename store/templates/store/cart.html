@@ -14,6 +14,8 @@
                 <span class="title">{{ item.product.name }} {{ item.quantity }}</span>
             </div>
             <div class="cart_price">
+                {% csrf_token %}
+                {{ form.as_p }}
                 Change quantity: <a href="{% url 'add_to_cart' item.product.id %}">[+]</a> / <a href="{% url 'remove_from_cart' item.product.id %}">[-]</a>
             </div>
         {% empty %}

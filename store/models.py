@@ -3,7 +3,7 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 
 from autoslug import AutoSlugField
-
+from .forms import CartForm
 
 class Category(models.Model):
     name = models.CharField(max_length=200)
@@ -81,6 +81,7 @@ class Cart(models.Model):
 
     def add_item_to_cart(self, product_id):
         product = Product.objects.get(pk=product_id)
+        form = CartForm
         try:
             preexisting_order = Order.objects.get(product=product, cart=self)
             preexisting_order.quantity += 1
@@ -89,7 +90,7 @@ class Cart(models.Model):
             new_order = Order.objects.create(
                 product=product,
                 cart=self,
-                quantity=1
+                quantity=form.quantity
             )
             new_order.save()
 

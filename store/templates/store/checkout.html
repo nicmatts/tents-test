@@ -4,6 +4,12 @@
 
 {% block content %}
 
-Check out
+<h1>Check out</h1>
+
+<ul>
+{% for item in items %}
+    <li>{{ item.product.name }} - {{ item.quantity }}</li>
+{% endfor %}
+</ul>
 
 {% endblock content %}
