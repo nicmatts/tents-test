@@ -71,6 +71,18 @@ class Product(models.Model):
         ordering = ['name']
 
 
+class Location(models.Model):
+    name = models.CharField(max_length=20)
+    address = models.CharField(max_length=200)
+    city = models.CharField(max_length=20)
+    state = models.CharField(max_length=2)
+    zipcode = models.CharField(max_length=10)
+    phone = models.CharField(max_length=20)
+    fax = models.CharField(max_length=20, blank=True)
+    email = models.EmailField()
+    description = models.TextField(blank=True)
+
+
 class Cart(models.Model):
     user = models.ForeignKey(User)
     active = models.BooleanField(default=True)

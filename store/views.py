@@ -9,7 +9,7 @@ from django.utils import timezone
 import logging
 logger = logging.getLogger(__name__)
 
-from .models import Category, Subcategory, Product, Cart, Order
+from .models import Category, Subcategory, Product, Cart, Order, Location
 from .forms import CartForm
 
 
@@ -61,6 +61,22 @@ def single_product(request, slug):
         'product': product,
     }
     return render(request, 'product-page.html', context)
+
+
+def all_locations(request):
+    locations = Location.objects.all()
+    context = {
+        'locations': locations,
+    }
+    return render(request, 'all-locations.html', context)
+
+
+def location(request, location_id):
+    location = Location.objects.get(pk=location_id)
+    context = {
+        'location': location,
+    }
+    return render(request, 'location.html', context)
 
 
 def add_to_cart(request, product_id):

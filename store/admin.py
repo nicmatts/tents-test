@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Category, Subcategory, Product, Cart, Order
+from .models import Category, Subcategory, Product, Cart, Order, Location
 
 
 class CategoryAdmin(admin.ModelAdmin):
@@ -34,8 +34,13 @@ class OrderAdmin(admin.ModelAdmin):
     pass
 
 
+class LocationAdmin(admin.ModelAdmin):
+    pass
+
+
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Subcategory, SubcategoryAdmin)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Cart, CartAdmin)
 admin.site.register(Order, OrderAdmin)
+admin.site.register(Location, LocationAdmin)

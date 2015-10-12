@@ -1,0 +1,7 @@
+<h1>Locations</h1>
+
+<ul>
+{% for location in locations %}
+    <li><a href="{% url 'location' location.id %}">{{ location.name }}</a></li>
+{% endfor %}
+</ul>
